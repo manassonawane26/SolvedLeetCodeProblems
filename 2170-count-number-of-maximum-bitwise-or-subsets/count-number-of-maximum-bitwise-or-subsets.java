@@ -1,23 +1,27 @@
 class Solution {
-    List<Integer> or = new ArrayList<>();
+    int n; // length of nums
+    int max; // max of betwise-OR of nums
+    int result = 0; // result
     public int countMaxOrSubsets(int[] nums) {
-        helper(0,nums,0);
-        Collections.sort(or,Collections.reverseOrder());
-        int max = or.get(0);
-        int answer = 0;
-        for(Integer i:or){
-            if(max==i) answer++;
-            else break;
-        }
-        return answer;
+        n = nums.length;
+        max = nums[0]; 
+        for(int i = 1; i < nums.length; i++) //going through nums to find betwise-OR
+            max = max | nums[i];
+        backtrack(0,new ArrayList<>(),nums); // call magic function which go over all possible subsets of nums 
+        return result;
     }
-    public void helper(int index,int[] nums,int sum){
-        if(index==nums.length){
-            or.add(sum);
-            return;
+        public void backtrack(int first, ArrayList<Integer> curr, int [] nums){
+        if(curr.size() > 0 && curr.get(curr.size() - 1) == max) // checking if current betwise-OR  equal the maximum 
+            result++;
+        for(int i = first; i < n; i++){
+            if(curr.size() > 0) 
+                curr.add(nums[i] | curr.get(curr.size() - 1)); 
+            else
+                curr.add(nums[i]);
+            backtrack(i + 1, curr, nums);
+	//I would highly suggest debug this code to understand how this "remove" part works 
+            curr.remove(curr.size() - 1); //important step we removing last element to maintain correct subset on the next iteration
         }
-        int val = (sum|nums[index]);
-        helper(index+1,nums,val);
-        helper(index+1,nums,sum);
     }
+
 }
