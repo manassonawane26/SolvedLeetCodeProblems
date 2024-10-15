@@ -8,7 +8,7 @@ class Solution {
         while(k-- > 0){
             int n = pq.poll();
             ans += n;
-            pq.offer((n + 2)/ 3);
+            pq.add((n + 2)/ 3);
         }
         return ans;
     }
