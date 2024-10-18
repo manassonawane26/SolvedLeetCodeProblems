@@ -23,5 +23,4 @@ class Solution {
             curr.remove(curr.size() - 1); //important step we removing last element to maintain correct subset on the next iteration
         }
     }
-
 }
