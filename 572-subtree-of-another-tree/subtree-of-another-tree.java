@@ -15,8 +15,7 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if(root == null && subRoot == null) return true;
-        if(root != null && subRoot == null) return true;
+        if((root == null && subRoot == null) || (root != null && subRoot == null)) return true;
         if(root == null && subRoot != null) return false;
 
         if(checkSubTree(root, subRoot)) return true;
@@ -26,8 +25,7 @@ class Solution {
 
     private boolean checkSubTree(TreeNode root, TreeNode subRoot){
         if(root == null && subRoot == null) return true;
-        if(root != null && subRoot == null) return false;
-        if(root == null && subRoot != null) return false;
+        if((root != null && subRoot == null) || (root == null && subRoot != null)) return false;
 
         if(root.val != subRoot.val) return false;
 
