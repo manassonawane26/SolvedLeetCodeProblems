@@ -25,7 +25,7 @@ class Solution {
 
     private boolean checkSubTree(TreeNode root, TreeNode subRoot){
         if(root == null && subRoot == null) return true;
-        if((root != null && subRoot == null) || (root == null && subRoot != null)) return false;
+        if(( subRoot == null) || (root == null )) return false;
 
         if(root.val != subRoot.val) return false;
 
