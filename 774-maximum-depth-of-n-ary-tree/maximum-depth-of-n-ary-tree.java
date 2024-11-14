@@ -21,8 +21,8 @@ class Solution {
     public int maxDepth(Node root) {
         int ans = 0;
         if(root == null) return 0;
-        for(int i=0;i < root.children.size();i++)
-            ans = Math.max(ans, maxDepth(root.children.get(i)));
+        for(Node child : root.children)
+            ans = Math.max(ans, maxDepth(child));
         return ans+1;
     }
 }
