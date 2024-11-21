@@ -10,8 +10,7 @@ class Solution {
         for(int j =0;j<k; j++){
             int temp = pq.poll();
             sum = sum - temp/2;
-            temp = temp - temp/2;
-            pq.offer(temp);
+            pq.offer(temp - temp/2);
         }
         
         // while(!pq.isEmpty())
