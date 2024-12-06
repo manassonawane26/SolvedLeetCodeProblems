@@ -11,15 +11,14 @@ class Solution {
             if(!hs.contains(i)){
                 System.out.println(i);
                 sum+=i;
-                if(sum>maxSum){
-                    // maxCount = Math.max(count, maxCount);
-                    System.out.println("sum while exiting = " + sum );
 
+                if(sum>maxSum)
                     break;
-                } 
+                // maxCount = Math.max(count, maxCount);
+                //  System.out.println("sum while exiting = " + sum ); 
                 count++;
-                System.out.println("sum = " + sum );
-                System.out.println("count = " + count );
+                // System.out.println("sum = " + sum );
+                // System.out.println("count = " + count );
             }
         }
         return count;
