@@ -1,40 +1,36 @@
 class Solution {
-    public int maxKDivisibleComponents(int n, int[][] edges, int[] vals, int k) {
-        if (n < 2) return 1;
+    public int maxKDivisibleComponents(int n, int[][] edges, int[] values, int k) {
         
-        List<List<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
-        int[] degree = new int[n];
-        
-        for (int[] edge : edges) {
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]);
-            degree[edge[0]]++;
-            degree[edge[1]]++;
+        List<List<Integer>> treeGraph = new ArrayList();
+        for(int i = 0; i < n; i++) {
+            treeGraph.add(new ArrayList());
         }
+        for(int[] edge : edges) {
+            treeGraph.get(edge[0]).add(edge[1]);
+            treeGraph.get(edge[1]).add(edge[0]);
+        }
+
+        return dfs(treeGraph, 0, -1, values, k)[1];
+    }
+
+    private int[] dfs(List<List<Integer>> treeGraph, int node, int parent, int[] values, int k) {
+
+        int components = 0;
+        int totalValue = values[node];
         
-        long[] nodeVals = new long[n];
-        for (int i = 0; i < n; i++) nodeVals[i] = vals[i];
-        Queue<Integer> leafQ = new LinkedList<>();
-        for (int i = 0; i < n; i++) if (degree[i] == 1) leafQ.add(i);
-        
-        int compCnt = 0;
-        while (!leafQ.isEmpty()) {
-            int curr = leafQ.poll();
-            degree[curr]--;
-            long carry = 0;
-            
-            if (nodeVals[curr] % k == 0) compCnt++;
-            else carry = nodeVals[curr];
-            
-            for (int nbr : graph.get(curr)) {
-                if (degree[nbr] == 0) continue;
-                degree[nbr]--;
-                nodeVals[nbr] += carry;
-                if (degree[nbr] == 1) leafQ.add(nbr);
+        for(int child : treeGraph.get(node)) {
+            if(child == parent) continue;
+            int[] childValue = dfs(treeGraph, child, node, values, k);
+            components += childValue[1];
+            if(childValue[0] != -1) { // child can merge with parent
+                totalValue += childValue[0];
             }
         }
-        
-        return compCnt;
+
+        if(totalValue % k == 0) {
+            return new int[] {-1, components + 1};
+        } else {
+            return new int[] { totalValue % k , components};
+        }
     }
 }
