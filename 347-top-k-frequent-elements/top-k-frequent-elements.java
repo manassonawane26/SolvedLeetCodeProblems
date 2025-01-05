@@ -43,12 +43,6 @@ class Solution {
         for(int i=0;i<k;i++){
             arr[i]=pq.poll();
         }
-        // StringBuilder result = new StringBuilder();
-        // while (!pq.isEmpty()) {
-        //     char c = pq.poll();
-        //     for(int i=0; i<hm.get(c);i++) result.append(c);
-        // }
-        
         return arr;
     }
 }
