@@ -9,9 +9,7 @@ class Solution {
         queue.offer(0);
         
         for(int j=1;j<n;j++){
-            // int i=Math.max(j-k,0);    // get the furthest index possible 
-            while(!queue.isEmpty() && queue.peek() < j-k) queue.poll();     // find the global max in the specified range for that particular j index
-            // int idx=queue.peek();
+            while(!queue.isEmpty() && queue.peek() < j-k) queue.poll();
             dp[j]=Math.max(dp[queue.peek()]+nums[j],nums[j]);
             res=Math.max(res,dp[j]);
             queue.offer(j);
