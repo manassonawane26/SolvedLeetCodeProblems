@@ -30,9 +30,9 @@ class Solution {
         
         for(int i : graph.get(node)) {
             // System.out.println("Node: " +node);
-            if(!visited.contains(i)){
-                if(dfs(i, destination, graph, visited)) return true;
-            }
+            if(!visited.contains(i) && dfs(i, destination, graph, visited)) 
+                return true;
+
         }
         return false;
     }
