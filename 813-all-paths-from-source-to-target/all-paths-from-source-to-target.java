@@ -20,22 +20,42 @@
 // }
 
 class Solution {
-
+    
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        int n = graph.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        backtrack(ans, new ArrayList<>(), graph, 0);
+        return ans;
+    }
     public void backtrack(List<List<Integer>> result, List<Integer> path, int[][] graph, int n) {
         path.add(n);
-
-        if(n == graph.length - 1)
+        if(n ==graph.length-1)
             result.add(new ArrayList<>(path));
-        else 
-            for(int v : graph[n]) 
+        else{
+            for(int v: graph[n])
                 backtrack(result, path, graph, v);
-
+        }
         path.remove(path.size() -1);
     }
-    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        List<List<Integer>>  result = new ArrayList<>();
-        backtrack(result, new ArrayList<>(), graph, 0);
-
-        return result;
-    }
 }
+
+// class Solution {
+
+//     public void backtrack(List<List<Integer>> result, List<Integer> path, int[][] graph, int n) {
+//         path.add(n);
+
+//         if(n == graph.length - 1)
+//             result.add(new ArrayList<>(path));
+//         else 
+//             for(int v : graph[n]) 
+//                 backtrack(result, path, graph, v);
+
+//         path.remove(path.size() -1);
+//     }
+//     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+//         List<List<Integer>>  result = new ArrayList<>();
+//         backtrack(result, new ArrayList<>(), graph, 0);
+
+//         return result;
+//     }
+// }
