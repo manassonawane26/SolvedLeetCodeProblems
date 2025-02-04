@@ -1,54 +1,51 @@
 class Solution {
-    List<String> ans;
-    public List<String> removeSubfolders(String[] folder) {
-        Arrays.sort(folder,(a,b)->a.length()-b.length());
-        TrieNode root = new TrieNode();
-        for(String s: folder)
-            addToTrie(s,root);
-        ans = new ArrayList();
-        trieTraversal(root,"");
-        return ans;
+    class TrieNode {
+        TrieNode children[];
+        boolean isLast;
+        TrieNode(){
+            children = new TrieNode[27];
+            isLast = false;
+        }
     }
-    void trieTraversal(TrieNode root,String s)
-    {
-        if(root.flag)
-            ans.add(s);
-        
-        int childSize = root.child.size();
-        for(String key: root.child.keySet())
-        {
-            if(root.child.containsKey(key))
-            {
-                System.out.println(key);
-                trieTraversal(root.child.get(key),s+"/"+key);
-            
+
+    TrieNode root;
+
+    private int getIndex(char c){
+        return c=='/' ? 26 : c-'a';
+    }
+    private void insert(String s){
+        TrieNode node = root;
+        for(char c: s.toCharArray()){
+            int index = getIndex(c);
+            if(node.children[index] == null){
+                node.children[index] = new TrieNode();
+            }
+            node = node.children[index];
+        }
+        node.children[26] = new TrieNode();
+        node = node.children[26];
+        node.isLast = true;
+    }
+    private boolean search(String s){
+        TrieNode node = root;
+        for(char c: s.toCharArray()){
+            if(node.isLast) return true;;
+            int index = getIndex(c);
+            if(node.children[index]==null) return false;
+            node = node.children[index];
+        }
+        return node.isLast;
+    }
+    public List<String> removeSubfolders(String[] folder) {
+        root = new TrieNode();
+        Arrays.sort(folder, (a,b) -> a.length() - b.length());
+        List<String> ans = new ArrayList<>();
+        for(String f: folder){
+            if(!search(f)){
+                insert(f);
+                ans.add(f);
             }
         }
-    }
-    void addToTrie(String s, TrieNode root)
-    {
-        TrieNode temp = root;
-        String[] stringArray = s.split("/");
-        for(String c: stringArray)
-        {
-            if(c.equals("")) continue;
-            if(!temp.child.containsKey(c))
-                temp.child.put(c,new TrieNode());
-            if(temp.child.get(c).flag)
-                return;
-            temp=temp.child.get(c);
-        }
-        temp.flag=true;
-    }
-    class TrieNode
-    {
-        Map<String,TrieNode> child;
-        boolean flag;
-        TrieNode()
-        {
-            child = new HashMap();
-            flag = false;
-        }
-
+        return ans;
     }
 }
