@@ -12,7 +12,7 @@ class Solution {
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 int temp = Math.min(rMax[i], cMax[j]);
-                sum+=(temp > grid[i][j] ? temp - grid[i][j]: 0);
+                sum+=(temp - grid[i][j]);
             }
         }
         return sum;
