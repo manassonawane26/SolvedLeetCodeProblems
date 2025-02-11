@@ -29,7 +29,7 @@ class Solution {
     }
     public void backtrack(List<List<Integer>> result, List<Integer> path, int[][] graph, int n) {
         path.add(n);
-        if(n ==graph.length-1)
+        if(n == graph.length-1)
             result.add(new ArrayList<>(path));
         else{
             for(int v: graph[n])
