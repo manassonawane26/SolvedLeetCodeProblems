@@ -3,10 +3,8 @@ class Solution {
     public int countSubstrings(String s, String t) {
         int m = s.length(), n = t.length();
         if (m < n) return countSubstrings(t, s);
-        
         int res = 0;
         int[][] dp = new int[n+1][2];
-        
         for (int i = 0; i < m; i++) {
             int[][] next = new int[n+1][2];
             for (int j = 0; j < n; j++) {
@@ -16,7 +14,6 @@ class Solution {
             }
             dp = next;
         }
-        
         return res;
     } 
 }
