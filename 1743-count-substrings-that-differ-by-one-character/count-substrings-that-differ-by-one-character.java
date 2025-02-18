@@ -14,10 +14,9 @@ class Solution {
                 next[j+1][1] = (s.charAt(i) == t.charAt(j)) ? dp[j][1] : dp[j][0] + 1;
                 res += next[j+1][1];
             }
-            
             dp = next;
         }
         
         return res;
-    }
+    } 
 }
