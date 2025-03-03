@@ -14,30 +14,25 @@
  * }
  */
  
+import java.util.HashSet;
 
 class FindElements {
-    BitSet recoveredValues;
+    HashSet<Integer> set; // Stores all recovered values
 
     public FindElements(TreeNode root) {
-        root.val = 0;
-        recoveredValues = new BitSet();
-        recoverTree(root);
+        set = new HashSet<>();
+        recoverTree(root, 0);
     }
-
-    private void recoverTree(TreeNode root) {
-        if (root == null) return;
-        recoveredValues.set(root.val);
-        if (root.left != null) {
-            root.left.val = 2 * root.val + 1;
-            recoverTree(root.left);
-        }
-        if (root.right != null) {
-            root.right.val = 2 * root.val + 2;
-            recoverTree(root.right);
-        }
-    }
-
+    
     public boolean find(int target) {
-        return recoveredValues.get(target);
+        return set.contains(target);
+    }
+
+    private void recoverTree(TreeNode root, int value) {
+        if (root == null) return;
+        set.add(value);
+        root.val = value;
+        recoverTree(root.left, 2 * value + 1);
+        recoverTree(root.right, 2 * value + 2);
     }
 }
